@@ -15,8 +15,11 @@ async function get(tabla, id){
 }
 
 async function create(tabla, data){
-  let col = await list(tabla)
-  col.push(data)
+  if(!db[tabla]){
+    db[tabla] = []
+  }
+  db[tabla].push(data)
+  console.log(db)
   return data
 }
 

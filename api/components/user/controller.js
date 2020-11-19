@@ -1,5 +1,4 @@
-const bodyParser = require('body-parser')
-
+const auth = require('../auth')
 const TABLA = 'user'
 
 module.exports = function( injectedStore ){
@@ -16,10 +15,19 @@ module.exports = function( injectedStore ){
     return store.get(TABLA, id)
   }
 
-  function create(user){
+  async function create(user){
     const userData = {
       id: user.id,
-      name: user.name
+      name: user.name,
+      username: user.username
+    }
+
+    if(user.password || user.username){
+      await auth.create({
+        id: user.id, 
+        username: user.username, 
+        password: user.password
+      })
     }
     return store.create(TABLA, userData)
   }

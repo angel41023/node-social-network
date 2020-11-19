@@ -12,7 +12,6 @@ module.exports = function( injectedStore ){
     return bcrypt.compare(password, data.password)
       .then(iquals => {
         if(iquals){
-          //Generar token
           return auth.sign(data)
         }else{
           throw new Error('Invalid data')

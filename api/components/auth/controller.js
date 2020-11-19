@@ -1,5 +1,6 @@
 const bcrypt = require('bcrypt')
 const auth = require('../../../auth')
+const error = require('../../../utils/error')
 const TABLA = 'auth'
 
 module.exports = function( injectedStore ){
@@ -14,7 +15,7 @@ module.exports = function( injectedStore ){
         if(iquals){
           return auth.sign(data)
         }else{
-          throw new Error('Invalid data')
+          throw error('Invalid data', 401)
         }
       })
     

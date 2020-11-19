@@ -1,5 +1,6 @@
 const express = require('express')
 
+const secure = require('./secure')
 const response = require('../../../network/response')
 const Controller = require('./index')
 
@@ -35,7 +36,7 @@ router.post('/', (req, res) => {
     })
 })
 
-router.patch('/:id', (req, res) => {
+router.patch('/:id', secure('update'), (req, res) => {
   Controller.update(req.params.id, req.body.name)
     .then((user) => {
       response.success(req, res, user, 201)

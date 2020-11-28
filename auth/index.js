@@ -18,6 +18,9 @@ const check = {
     if(decoded.id !== owner){
       throw error('Unauthorized', 401)
     }
+  },
+  logged: function(req){
+    const decoded = decodeHeader(req)
   }
 }
 function getToken(auth){

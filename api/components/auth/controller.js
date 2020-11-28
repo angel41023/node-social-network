@@ -13,7 +13,7 @@ module.exports = function( injectedStore ){
     return bcrypt.compare(password, data.password)
       .then(iquals => {
         if(iquals){
-          return auth.sign(data)
+          return auth.sign({...data})
         }else{
           throw error('Invalid data', 401)
         }

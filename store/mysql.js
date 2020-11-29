@@ -45,7 +45,7 @@ function list(table){
 
 function get(table, id){
   return new Promise((resolve, reject) => {
-    connection.query(`SELECT * FROM ${table} WHERE id = ${id}`, (error, data) => {
+    connection.query(`SELECT * FROM ${table} WHERE id = '${id}'`, (error, data) => {
       if(error) return reject(error)
       resolve(data)
     })
@@ -64,6 +64,15 @@ function create(table, data){
 function update(table, data){
   return new Promise((resolve, reject) => {
     connection.query(`UPDATE ${table} SET ? WHERE id = ?`, [data, data.id], (error, data) => {
+      if(error) return reject(error)
+      resolve(data)
+    })
+  })
+}
+
+function remove(table, id){
+  return new Promise((resolve, reject) => {
+    connection.query(`DELETE FROM ${table} WHERE id = '${id}'`, (error, data) => {
       if(error) return reject(error)
       resolve(data)
     })
@@ -91,5 +100,6 @@ module.exports = {
   get,
   create, 
   update,
+  remove,
   query
 }
